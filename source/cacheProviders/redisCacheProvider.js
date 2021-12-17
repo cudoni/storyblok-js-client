@@ -7,7 +7,7 @@ const RedisCacheProvider = {
   async connect (config) {
     if (!config.uri) throw new Error(`Redis connection URI is required in 'config.uri'`);
 
-    this.client = createClient(clientOptions);
+    this.client = createClient(config);
     this.client.on('error', (err) => console.log('Redis Client Error', err));
     return this.client.connect();
   },
@@ -36,7 +36,7 @@ const RedisCacheProvider = {
   },
   
   flush() {
-    this.client.hFlush('blok');
+    this.client.del(this.prefix)
   }
 }
 
