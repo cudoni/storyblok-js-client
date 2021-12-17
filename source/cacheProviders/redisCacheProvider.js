@@ -5,11 +5,7 @@ const RedisCacheProvider = {
   prefix: 'blok',
   
   async connect (config) {
-    let clientOptions = {
-      uri: null
-    }
-
-    if (!config.uri) throw new Error(`Redis connection URI is required ${JSON.stringify(config)} specified`);
+    if (!config.uri) throw new Error(`Redis connection URI is required in 'config.uri'`);
 
     this.client = createClient(clientOptions);
     this.client.on('error', (err) => console.log('Redis Client Error', err));
