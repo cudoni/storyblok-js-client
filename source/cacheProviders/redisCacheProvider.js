@@ -23,7 +23,6 @@ const RedisCacheProvider = {
   },
 
   async set (key, content) {
-    // memory[key] = content;
     await this.client.hSet(this.prefix, key, this.serialize(content));
   },
 
@@ -37,7 +36,7 @@ const RedisCacheProvider = {
   },
   
   flush() {
-    this.client.hFlush();
+    this.client.hFlush('blok');
   }
 }
 
