@@ -58,7 +58,8 @@
     "axios": "^0.21.1"
   },
   "dependencies": {
-    "qs": "^6.9.4"
+    "qs": "^6.9.4",
+    "redis": "^4.0.1"
   },
   "release": {
     "branches": [

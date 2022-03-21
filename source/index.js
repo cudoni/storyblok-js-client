@@ -5,9 +5,11 @@ import axios from  'axios'
 
 import throttledQueue from './throttlePromise'
 import RichTextResolver from './richTextResolver'
+import RedisCacheProvider from './cacheProviders/redisCacheProvider'
 
 let memory = {}
 let cacheVersions = {}
+let client = null
 
 import { delay, getOptionsPage, isCDNUrl, asyncMap, range, flatMap } from './helpers'
 
@@ -54,6 +56,7 @@ class Storyblok {
       headers: headers,
       proxy: (config.proxy || false)
     })
+    if (this.cache.type === 'redis') RedisCacheProvider.connect({uri: this.cache.uri})
     if (config.responseInterceptor) {
       this.client.interceptors.response.use((res) => {
         return config.responseInterceptor(res)
@@ -418,6 +421,9 @@ class Storyblok {
             memory = {}
           }
         }
+      case 'redis':
+        return RedisCacheProvider;
+
       default:
         return {
           get() {},

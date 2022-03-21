@@ -54,7 +54,7 @@ export interface StoryblokConfig {
 }
 
 export interface StoryblokCache {
-  type?: 'memory'
+  type?: 'memory' | 'redis'
   clear?: 'auto' | 'manual'
 }
 
